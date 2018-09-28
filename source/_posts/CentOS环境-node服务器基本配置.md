@@ -90,3 +90,38 @@ pm2和forever是启动Nodejs服务常用到的两个工具。使用这两个指�
 ```shell
     cp src/redis-server /usr/bin/
 ```
+
+
+创建配置文件夹和数据文件夹
+```shell
+    sudo mkdir /etc/redis
+    sudo mkdir /var/redis
+```
+
+将编译目录下的脚本拷贝到init.d文件夹下
+```shell
+    sudo cp utils/redis_init_script /etc/init.d/redis_6379
+```
+
+拷贝配置文件
+```shell
+    sudo cp redis.conf /etc/redis/6379.conf
+```
+
+为redis创建一个数据和工作目录
+```shell
+    sudo mkdir /var/redis/6379
+```
+
+编辑/etc/redis/6379.conf
+* 把参数 daemonize 设置为 yes (默认是 no).
+* 设置 pidfile 为 /var/run/redis_6379.pid (可以根据需要改变端口).
+* 如果有需要可以改变 port 参数. 默认6379.
+* 设置 loglevel 参数为合适值.
+* 设置 logfile 为 /var/log/redis_6379.log
+* 设置 dir 为 /var/redis/6379 (此步骤很重要!)
+
+启动程序
+```shell
+    sudo /etc/init.d/redis_6379 start
+```
